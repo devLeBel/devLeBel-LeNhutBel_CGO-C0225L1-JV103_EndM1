@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Câu 2 - Cặp số thân thiết</title>
+</head>
+<body>
+  <h1>Viết hàm kiểm tra cặp số thân thiết</h1>
+  <p>Hai số là cặp thân thiết nếu tổng các ước (ngoại trừ chính nó) của số này bằng số kia và ngược lại.</p>
+  <form id="formKiemTra" onsubmit="return false;">
+    <label for="soA">Nhập số A:</label>
+    <input type="number" id="soA" min="1" required><br><br>
+    <label for="soB">Nhập số B:</label>
+    <input type="number" id="soB" min="1" required><br><br>
+    <button id="btnKiemTra">So sánh</button>
+  </form>
+  <p id="hienThiSo"></p>
+  <p id="ketQua"></p>
+
+  <script>
+    function tongUocNgoaiTru(n) {
+      let tong = 1;
+      for (let i = 2; i <= Math.floor(n / 2); i++) {
+        if (n % i === 0) tong += i;
+      }
+      return n > 1 ? tong : 0;
+    }
+
+    function laCapSoThanThiet(a, b) {
+      return tongUocNgoaiTru(a) === b && tongUocNgoaiTru(b) === a;
+    }
+
+    document.getElementById('btnKiemTra').addEventListener('click', function() {
+      const a = Number(document.getElementById('soA').value);
+      const b = Number(document.getElementById('soB').value);
+      document.getElementById('hienThiSo').textContent = `Bạn đã nhập: A = ${a}, B = ${b}`;
+      const result = laCapSoThanThiet(a, b) ? 'True' : 'False';
+      document.getElementById('ketQua').textContent = `Kết quả: ${result}`;
+    });
+  </script>
+</body>
+</html>

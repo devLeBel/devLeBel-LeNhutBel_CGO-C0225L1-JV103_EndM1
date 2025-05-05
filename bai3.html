@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Câu 3 - Quản lý sách</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { text-align: center; }
+    .container { max-width: 800px; margin: 0 auto; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+    th, td { border: 1px solid #000; padding: 8px; text-align: center; }
+    th { background-color: #f2f2f2; }
+    #btnThemSach { display: block; margin: 0 auto; padding: 10px 20px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Quản lý sách</h1>
+    <table id="tblDanhSachSach">
+      <thead>
+        <tr>
+          <th>Mã sách</th>
+          <th>Tên sách</th>
+          <th>Năm xuất bản</th>
+          <th>Số quyển</th>
+          <th>Tình trạng</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <button id="btnThemSach">Thêm sách</button>
+  </div>
+
+  <script>
+    function Sach(maSach, tenSach, namXuatBan, soQuyen) {
+      this.maSach = maSach;
+      this.tenSach = tenSach;
+      this.namXuatBan = namXuatBan;
+      this.soQuyen = soQuyen;
+      this.tinhTrang = soQuyen > 0;
+    }
+
+    const danhSachSach = [];
+
+    function capNhatBang() {
+      const tbody = document.querySelector('#tblDanhSachSach tbody');
+      tbody.innerHTML = '';
+      danhSachSach.forEach(sach => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${sach.maSach}</td>
+          <td>${sach.tenSach}</td>
+          <td>${sach.namXuatBan}</td>
+          <td>${sach.soQuyen}</td>
+          <td>${sach.tinhTrang ? 'Còn sách' : 'Hết sách'}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    document.getElementById('btnThemSach').addEventListener('click', function() {
+      const ma = prompt('Nhập mã sách (1xxxx):');
+      const ten = prompt('Nhập tên sách:');
+      const nam = Number(prompt('Nhập năm xuất bản (4 chữ số):'));
+      const so = Number(prompt('Nhập số quyển:'));
+      if (!ma || !ten || !nam || isNaN(so)) {
+        alert('Vui lòng nhập đầy đủ thông tin!');
+        return;
+      }
+      const sachMoi = new Sach(ma, ten, nam, so);
+      danhSachSach.push(sachMoi);
+      capNhatBang();
+    });
+  </script>
+</body>
+</html>

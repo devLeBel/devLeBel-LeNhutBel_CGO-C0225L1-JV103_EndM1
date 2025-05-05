@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Câu 1 - Trung bình số lẻ vị trí chẵn</title>
+</head>
+<body>
+  <h1>Tính trung bình cộng các số lẻ ở vị trí chẵn</h1>
+  <input style="width: 300px;" type="text" id="inputMang" placeholder="Nhập dãy số, cách nhau bởi dấu phẩy">
+  <button id="btnTinh">Tính</button>
+  <p id="hienThiMang"></p>
+  <p id="ketQua"></p>
+  <script>
+    function tinhTrungBinhSoLeViTriChan(mangSoNguyen) {
+      let tongSoLe = 0;
+      let demSoLe = 0;
+      for (let i = 1; i < mangSoNguyen.length; i += 2) {
+        let giaTri = mangSoNguyen[i];
+        if (giaTri % 2 !== 0) {
+          tongSoLe += giaTri;
+          demSoLe++;
+        }
+      }
+      return demSoLe > 0 ? tongSoLe / demSoLe : 0;
+    }
+
+    document.getElementById('btnTinh').addEventListener('click', function() {
+      const str = document.getElementById('inputMang').value;
+      const mang = str.split(',').map(Number);
+      // Hiển thị mảng
+      document.getElementById('hienThiMang').textContent = 'Mảng: [' + mang.join(', ') + ']';
+      // Tính và hiển thị kết quả
+      const ketQua = tinhTrungBinhSoLeViTriChan(mang);
+      document.getElementById('ketQua').textContent = 'Kết quả: ' + ketQua;
+    });
+  </script>
+</body>
+</html>
